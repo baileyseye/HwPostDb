@@ -4,22 +4,16 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import static org.baileyseye.CategoryInserter.insertCategory;
+import static org.baileyseye.ProductManager.insertProduct;
 
 public class Main {
     public static void main(String[] args) {
-        connected();
-    }
+        /*
+        AuthorRetriever.retrieveAuthorsByCategoryName();
+       AuthorInserter.insertAuthor("John Doe");
+        ProductDeleterByName.deleteProductByName("master and margarita");
+        */
 
-    private static void connected() {
-        DatabaseConnector.loadPostgresDriver();
-        Connection connection = DatabaseConnector.connect();
-        try {
-            if (connection != null) {
-                connection.close();
-                System.out.println("Connection to the database is closed.");
-            }
-        } catch (SQLException e) {
-            System.out.println("Error closing the database connection: " + e.getMessage());
-        }
+        ProductManager.insertProduct("kekwer2", 500, 1);
     }
 }
