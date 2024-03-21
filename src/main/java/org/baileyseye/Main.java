@@ -1,19 +1,26 @@
 package org.baileyseye;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import org.baileyseye.product.Product;
+import org.baileyseye.product.ProductGetter;
 
-import static org.baileyseye.CategoryInserter.insertCategory;
-import static org.baileyseye.ProductManager.insertProduct;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         /*
         AuthorRetriever.retrieveAuthorsByCategoryName();
-       AuthorInserter.insertAuthor("John Doe");
+       AuthorInserter.insertAuthor("Joker");
         ProductDeleterByName.deleteProductByName("master and margarita");
+        ProductManager.insertProduct("Aston", 100500);
         */
+        getProducts();
+    }
 
-        ProductManager.insertProduct("kekwer2", 500, 1);
+    private static void getProducts() {
+        ProductGetter productGetter = new ProductGetter();
+        List<Product> products = productGetter.getProducts();
+        for (Product product : products) {
+            System.out.println("Product Name: " + product.getName() + ", Price: " + product.getPrice());
+        }
     }
 }

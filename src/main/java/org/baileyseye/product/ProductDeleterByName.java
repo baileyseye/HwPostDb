@@ -1,4 +1,6 @@
-package org.baileyseye;
+package org.baileyseye.product;
+
+import org.baileyseye.database.DatabaseConnector;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

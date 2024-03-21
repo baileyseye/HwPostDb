@@ -1,4 +1,6 @@
-package org.baileyseye;
+package org.baileyseye.product;
+
+import org.baileyseye.database.DatabaseConnector;
 
 import java.sql.Connection;
 
@@ -7,15 +9,14 @@ import java.sql.SQLException;
 
 public class ProductManager {
 
-    public static void insertProduct(String productName, int productPrice, int categoryId) {
+    public static void insertProduct(String productName, int productPrice) {
         Connection connection = DatabaseConnector.connect();
 
-        String insertSQL = "INSERT INTO shop.product(product_name, product_price, categories) VALUES (?, ?, ?)";
+        String insertSQL = "INSERT INTO shop.product(product_name, product_price) VALUES (?, ?)";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertSQL)) {
             preparedStatement.setString(1, productName);
             preparedStatement.setInt(2, productPrice);
-            preparedStatement.setInt(3, categoryId);
 
             int affectedRows = preparedStatement.executeUpdate();
 

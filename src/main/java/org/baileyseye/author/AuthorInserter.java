@@ -1,31 +1,32 @@
-package org.baileyseye;
+package org.baileyseye.author;
+import org.baileyseye.database.DatabaseConnector;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class CategoryInserter {
+public class AuthorInserter {
 
-    public static void insertCategory(String categoryName) {
+    public static void insertAuthor(String authorName) {
         Connection connection = DatabaseConnector.connect();
 
-        String insertSQL = "INSERT INTO shop.categories (categories_name) VALUES (?)";
+        String insertSQL = "INSERT INTO shop.author (name) VALUES (?)";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(insertSQL);
 
-            preparedStatement.setString(1, categoryName);
+            preparedStatement.setString(1, authorName);
 
             int affectedRows = preparedStatement.executeUpdate();
 
             if (affectedRows > 0) {
-                System.out.println("A new category was inserted successfully.");
+                System.out.println("A new author was inserted successfully.");
             } else {
-                System.out.println("Inserting the new category failed.");
+                System.out.println("Inserting the new author failed.");
             }
 
         } catch (SQLException e) {
-            System.out.println("Error occurred while inserting the new category. Error: " + e.getMessage());
+            System.out.println("Error occurred while inserting the new author. Error: " + e.getMessage());
         } finally {
             if (connection != null) {
                 try {
