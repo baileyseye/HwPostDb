@@ -19,7 +19,6 @@ public class AuthorRetriever {
             preparedStatement.setString(1, "Authors");
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                // Предположим, что у вас есть столбцы id и name в таблице author
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
 
