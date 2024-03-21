@@ -1,6 +1,7 @@
 package org.baileyseye.product;
 
 import org.baileyseye.database.DatabaseConnector;
+import org.baileyseye.database.SQLQueries;
 
 import java.sql.Connection;
 
@@ -12,9 +13,8 @@ public class ProductManager {
     public static void insertProduct(String productName, int productPrice) {
         Connection connection = DatabaseConnector.connect();
 
-        String insertSQL = "INSERT INTO shop.product(product_name, product_price) VALUES (?, ?)";
-
-        try (PreparedStatement preparedStatement = connection.prepareStatement(insertSQL)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement
+                (SQLQueries.INSERT_PRODUCT)) {
             preparedStatement.setString(1, productName);
             preparedStatement.setInt(2, productPrice);
 

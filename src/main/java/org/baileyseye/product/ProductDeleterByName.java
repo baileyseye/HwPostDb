@@ -1,6 +1,7 @@
 package org.baileyseye.product;
 
 import org.baileyseye.database.DatabaseConnector;
+import org.baileyseye.database.SQLQueries;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,9 +11,10 @@ public class ProductDeleterByName {
 
     public static void deleteProductByName(String productName) {
         Connection connection = DatabaseConnector.connect();
-        String deleteSQL = "DELETE FROM shop.product WHERE product_name = ?";
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(deleteSQL)) {
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement
+                (SQLQueries.DELETE_PRODUCT_BY_NAME)) {
             preparedStatement.setString(1, productName);
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows > 0) {

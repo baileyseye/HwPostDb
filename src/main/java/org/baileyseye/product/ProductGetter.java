@@ -1,6 +1,7 @@
 package org.baileyseye.product;
 
 import org.baileyseye.database.DatabaseConnector;
+import org.baileyseye.database.SQLQueries;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,13 +12,13 @@ import java.util.List;
 
 public class ProductGetter {
 
-    private static final String QUERY = "SELECT product_name, product_price FROM shop.product";
+
 
     public List<Product> getProducts() {
         List<Product> products = new ArrayList<>();
 
         try (Connection connection = DatabaseConnector.connect();
-             PreparedStatement preparedStatement = connection.prepareStatement(QUERY)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(SQLQueries.GET_PRODUCTS)) {
 
             ResultSet resultSet = preparedStatement.executeQuery();
 

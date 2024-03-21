@@ -1,6 +1,7 @@
 package org.baileyseye.categories;
 
 import org.baileyseye.database.DatabaseConnector;
+import org.baileyseye.database.SQLQueries;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,10 +12,8 @@ public class CategoryInserter {
     public static void insertCategory(String categoryName) {
         Connection connection = DatabaseConnector.connect();
 
-        String insertSQL = "INSERT INTO shop.categories (categories_name) VALUES (?)";
-
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(insertSQL);
+        try (PreparedStatement preparedStatement = connection.prepareStatement
+                (SQLQueries.INSERT_CATEGORY)) {
 
             preparedStatement.setString(1, categoryName);
 

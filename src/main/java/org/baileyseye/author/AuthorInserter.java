@@ -1,5 +1,6 @@
 package org.baileyseye.author;
 import org.baileyseye.database.DatabaseConnector;
+import org.baileyseye.database.SQLQueries;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,10 +11,8 @@ public class AuthorInserter {
     public static void insertAuthor(String authorName) {
         Connection connection = DatabaseConnector.connect();
 
-        String insertSQL = "INSERT INTO shop.author (name) VALUES (?)";
-
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(insertSQL);
+        try (PreparedStatement preparedStatement = connection.prepareStatement
+                (SQLQueries.INSERT_AUTHOR)) {
 
             preparedStatement.setString(1, authorName);
 

@@ -1,6 +1,7 @@
 package org.baileyseye.author;
 
 import org.baileyseye.database.DatabaseConnector;
+import org.baileyseye.database.SQLQueries;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,15 +11,13 @@ import java.sql.SQLException;
 public class AuthorRetriever {
 
     public static void retrieveAuthorsByCategoryName() {
-        Connection connection = DatabaseConnector.connect();
-        String query = "SELECT a.* FROM shop.author a INNER JOIN shop.categories c " +
-                "ON a.categories = c.categories_id WHERE c.categories_name = ?";
 
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
+        Connection connection = DatabaseConnector.connect();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement
+                (SQLQueries.RETRIEVE_AUTHORS_BY_CATEGORY_NAME)) {
             preparedStatement.setString(1, "Authors");
             ResultSet resultSet = preparedStatement.executeQuery();
-
             while (resultSet.next()) {
                 // Предположим, что у вас есть столбцы id и name в таблице author
                 int id = resultSet.getInt("id");
