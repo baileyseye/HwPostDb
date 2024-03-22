@@ -1,8 +1,8 @@
 package org.baileyseye;
 
-import org.baileyseye.author.AuthorRetriever;
 import org.baileyseye.product.Product;
 import org.baileyseye.product.ProductGetter;
+import org.baileyseye.productauthor.AuthorProductManager;
 
 import java.util.List;
 
@@ -13,8 +13,10 @@ public class Main {
         ProductDeleterByName.deleteProductByName("master and margarita");
         ProductManager.insertProduct("Aston", 100500);
         */
-        getProducts();
-        AuthorRetriever.retrieveAuthorsByCategoryName();
+        //getProducts();
+        //AuthorRetriever.retrieveAuthorsByCategoryName();
+        AuthorProductManager.getAllRelations();
+
     }
 
     private static void getProducts() {

@@ -14,4 +14,8 @@ public class SQLQueries {
                     "c.categories_id WHERE c.categories_name = ?";
     public static final String INSERT_CATEGORY =
             "INSERT INTO shop.categories (categories_name) VALUES (?)";
+    public static final String INSERT_INTO_AUTHOR_PRODUCT =
+            "INSERT INTO shop.author_product_id (author_name_id, author_product_id) VALUES (?, ?)";
+    public static final String SELECT_FROM_AUTHOR_PRODUCT =
+            "SELECT * FROM shop.author_product_id";
 }
