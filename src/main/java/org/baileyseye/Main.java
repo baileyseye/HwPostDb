@@ -13,9 +13,9 @@ public class Main {
         ProductDeleterByName.deleteProductByName("master and margarita");
         ProductManager.insertProduct("Aston", 100500);
         */
-        //getProducts();
+        getProducts();
         //AuthorRetriever.retrieveAuthorsByCategoryName();
-        AuthorProductManager.getAllRelations();
+        //AuthorProductManager.getAllRelations();
 
     }
 

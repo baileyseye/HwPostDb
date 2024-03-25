@@ -1,4 +1,4 @@
-package org.baileyseye.product;
+package org.baileyseye.categories;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -8,8 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Column;
 
 @Entity
-@Table(name = "products")
-public class Product {
+@Table(name = "categories")
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,25 +17,21 @@ public class Product {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "price")
-    private double price;
 
-    public Product(String name, double price) {
+    public Category( String name) {
         this.name = name;
-        this.price = price;
     }
 
-    // Getters
     public String getName() {
         return name;
     }
 
-    public double getPrice() {
-        return price;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "Product{name='" + name + '\'' + ", price=" + price + '}';
+    public Long getId() {
+        return id;
     }
+
 }

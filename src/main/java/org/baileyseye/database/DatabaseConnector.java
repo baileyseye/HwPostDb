@@ -29,4 +29,17 @@ public class DatabaseConnector {
         }
     }
 
+
+    /*
+    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+    session.beginTransaction();
+
+    // Работа с базой данных...
+
+    session.getTransaction().commit();
+} catch (Exception e) {
+    e.printStackTrace();
+}
+     */
+
 }

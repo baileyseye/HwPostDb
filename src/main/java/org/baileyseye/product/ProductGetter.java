@@ -2,6 +2,9 @@ package org.baileyseye.product;
 
 import org.baileyseye.database.DatabaseConnector;
 import org.baileyseye.database.SQLQueries;
+import org.baileyseye.util.HibernateUtil;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,19 +18,11 @@ public class ProductGetter {
 
 
     public List<Product> getProducts() {
-        List<Product> products = new ArrayList<>();
-
-        try (Connection connection = DatabaseConnector.connect();
-             PreparedStatement preparedStatement = connection.prepareStatement(SQLQueries.GET_PRODUCTS)) {
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                String name = resultSet.getString("product_name");
-                double price = resultSet.getDouble("product_price");
-                products.add(new Product(name, price));
-            }
-        } catch (SQLException e) {
+        List<Product> products = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<Product> query = session.createNativeQuery(SQLQueries.GET_PRODUCTS);
+            products = query.list();
+        } catch (Exception e) {
             System.out.println("Error occurred while fetching products. Error: " + e.getMessage());
         }
 
