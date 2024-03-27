@@ -1,24 +1,37 @@
 package org.baileyseye.author;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Column;
+import jakarta.persistence.*;
+import org.baileyseye.categories.Category;
 
 @Entity
-@Table(name = "authors")
+@Table(name = "author", schema = "shop")
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id", nullable = false)
+    private Integer id;
 
-    @Column(name = "name")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "categories", nullable = false)
+    private Category categories;
+
+    @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    public Author(String name) {
-        this.name = name;
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Category getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Category categories) {
+        this.categories = categories;
     }
 
     public String getName() {
@@ -28,10 +41,5 @@ public class Author {
     public void setName(String name) {
         this.name = name;
     }
-
-    public Long getId() {
-        return id;
-    }
-
 
 }

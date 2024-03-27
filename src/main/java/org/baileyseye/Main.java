@@ -2,7 +2,6 @@ package org.baileyseye;
 
 import org.baileyseye.product.Product;
 import org.baileyseye.product.ProductGetter;
-import org.baileyseye.productauthor.AuthorProductManager;
 
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class Main {
         ProductGetter productGetter = new ProductGetter();
         List<Product> products = productGetter.getProducts();
         for (Product product : products) {
-            System.out.println("Product Name: " + product.getName() + ", Price: " + product.getPrice());
+            System.out.println("Product Name: " + product.getProductName() + ", Price: " + product.getProductPrice());
         }
     }
 }

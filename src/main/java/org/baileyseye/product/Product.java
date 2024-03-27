@@ -1,41 +1,44 @@
 package org.baileyseye.product;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Column;
+import jakarta.persistence.*;
+
+import java.math.BigDecimal;
 
 @Entity
-@Table(name = "products")
+@Table(name = "Product", schema = "shop")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "product_id", nullable = false)
+    private Integer id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "product_name", nullable = false, length = 100)
+    private String productName;
 
-    @Column(name = "price")
-    private double price;
+    @Column(name = "product_price", precision = 18, scale = 2)
+    private BigDecimal productPrice;
 
-    public Product(String name, double price) {
-        this.name = name;
-        this.price = price;
+    public Integer getId() {
+        return id;
     }
 
-    // Getters
-    public String getName() {
-        return name;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public double getPrice() {
-        return price;
+    public String getProductName() {
+        return productName;
     }
 
-    @Override
-    public String toString() {
-        return "Product{name='" + name + '\'' + ", price=" + price + '}';
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
+
+    public BigDecimal getProductPrice() {
+        return productPrice;
+    }
+
+    public void setProductPrice(BigDecimal productPrice) {
+        this.productPrice = productPrice;
+    }
+
 }

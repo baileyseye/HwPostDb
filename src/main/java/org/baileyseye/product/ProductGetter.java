@@ -1,29 +1,30 @@
 package org.baileyseye.product;
 
-import org.baileyseye.database.DatabaseConnector;
+import org.baileyseye.product.Product;
 import org.baileyseye.database.SQLQueries;
-import org.baileyseye.util.HibernateUtil;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
+import org.baileyseye.util.JpaUtil;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.List;
 
 public class ProductGetter {
 
-
-
     public List<Product> getProducts() {
+        EntityManager entityManager = JpaUtil.getEntityManager();
         List<Product> products = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query<Product> query = session.createNativeQuery(SQLQueries.GET_PRODUCTS);
-            products = query.list();
+        try {
+            entityManager.getTransaction().begin();
+            Query query = entityManager.createNativeQuery(SQLQueries.GET_PRODUCTS, Product.class);
+            products = query.getResultList();
+            entityManager.getTransaction().commit();
         } catch (Exception e) {
+            if (entityManager.getTransaction().isActive()) {
+                entityManager.getTransaction().rollback();
+            }
             System.out.println("Error occurred while fetching products. Error: " + e.getMessage());
+        } finally {
+            entityManager.close();
         }
 
         return products;

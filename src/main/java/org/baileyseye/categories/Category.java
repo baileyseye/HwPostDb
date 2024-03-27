@@ -1,37 +1,59 @@
 package org.baileyseye.categories;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Column;
+import jakarta.persistence.*;
+import org.baileyseye.author.Author;
+import org.baileyseye.product.Product;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "categories")
+@Table(name = "categories", schema = "shop")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "categories_id", nullable = false)
+    private Integer id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "categories_name", nullable = false, length = 100)
+    private String categoriesName;
 
+    @OneToMany(mappedBy = "categories")
+    private Set<Author> authors = new LinkedHashSet<>();
 
-    public Category( String name) {
-        this.name = name;
-    }
+    @OneToMany(mappedBy = "categories")
+    private Set<Product> products = new LinkedHashSet<>();
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getId() {
+    public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCategoriesName() {
+        return categoriesName;
+    }
+
+    public void setCategoriesName(String categoriesName) {
+        this.categoriesName = categoriesName;
+    }
+
+    public Set<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(Set<Author> authors) {
+        this.authors = authors;
+    }
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 
 }
