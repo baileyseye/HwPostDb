@@ -1,6 +1,7 @@
-package org.baileyseye.author;
+package org.baileyseye.productauthor;
 
 import jakarta.persistence.*;
+import org.baileyseye.author.Author;
 import org.baileyseye.product.Product;
 
 @Entity

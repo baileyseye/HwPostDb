@@ -1,4 +1,4 @@
-package org.baileyseye.author;
+package org.baileyseye.productauthor;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

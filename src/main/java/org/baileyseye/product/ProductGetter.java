@@ -1,30 +1,37 @@
 package org.baileyseye.product;
 
-import org.baileyseye.product.Product;
-import org.baileyseye.database.SQLQueries;
 import org.baileyseye.util.JpaUtil;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import java.util.List;
 
 public class ProductGetter {
 
     public List<Product> getProducts() {
-        EntityManager entityManager = JpaUtil.getEntityManager();
-        List<Product> products = null;
+        EntityManager entityManager = null;
+        EntityTransaction transaction = null;
+        List products = null;
         try {
-            entityManager.getTransaction().begin();
-            Query query = entityManager.createNativeQuery(SQLQueries.GET_PRODUCTS, Product.class);
-            products = query.getResultList();
-            entityManager.getTransaction().commit();
+            entityManager = JpaUtil.getEntityManager();
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+                Query query = entityManager.createQuery
+                        ("SELECT p FROM Product p", Product.class);
+                products = query.getResultList();
+
+            transaction.commit();
         } catch (Exception e) {
-            if (entityManager.getTransaction().isActive()) {
-                entityManager.getTransaction().rollback();
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
             }
             System.out.println("Error occurred while fetching products. Error: " + e.getMessage());
         } finally {
-            entityManager.close();
+            if (entityManager != null) {
+                entityManager.close();
+            }
         }
 
         return products;

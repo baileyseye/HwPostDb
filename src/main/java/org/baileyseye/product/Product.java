@@ -1,6 +1,6 @@
 package org.baileyseye.product;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import java.math.BigDecimal;
 
